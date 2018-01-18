@@ -25,9 +25,10 @@ func MemeHandler(res http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+	port := os.Getenv("PORT")
 	http.HandleFunc("/", MemeHandler)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.Handle("/img/", http.StripPrefix("/img", http.FileServer(http.Dir("./assets/img"))))
 
-	log.Fatal(http.ListenAndServe(":80", nil))
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
